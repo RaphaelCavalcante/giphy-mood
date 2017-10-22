@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var gif_service_1 = require("../../service/gif.service");
+var http_1 = require("@angular/http");
 var moods = [
     "Happy",
     "Sad",
@@ -23,13 +23,10 @@ var moods = [
     "Good"
 ];
 var MoodDashboardComponent = (function () {
-    function MoodDashboardComponent(gifservice) {
-        this.gifservice = gifservice;
+    function MoodDashboardComponent(http) {
+        this.http = http;
         this.array_moods = moods;
     }
-    MoodDashboardComponent.prototype.ngOnInit = function () {
-        console.log(this.gifservice.getGifsByMood("mood"));
-    };
     return MoodDashboardComponent;
 }());
 MoodDashboardComponent = __decorate([
@@ -37,7 +34,7 @@ MoodDashboardComponent = __decorate([
         selector: 'mood-dashboard',
         templateUrl: '../../../template/mood-dashboard.template.html',
     }),
-    __metadata("design:paramtypes", [gif_service_1.GifService])
+    __metadata("design:paramtypes", [http_1.Http])
 ], MoodDashboardComponent);
 exports.MoodDashboardComponent = MoodDashboardComponent;
 //# sourceMappingURL=mood-dashboard.component.js.map

@@ -1,8 +1,7 @@
-<h1> teste </h1>
-<div>
-    <ul>
-        <li *ngFor='let mood of array_moods'>
-            <span > {{mood}} </span>
-        </li>
-    </ul>
+<div class='dashboard'>
+    <div class='mood-list'>
+        <a *ngFor='let mood of array_moods' [routerLink]="['/mood',mood|lowercase]">
+            <h4 class="mood-item"> {{mood}} </h4>
+        </a>
+    </div>
 </div>

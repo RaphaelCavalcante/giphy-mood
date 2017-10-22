@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GifService} from '../../service/gif.service';
+import {Http, Response} from '@angular/http';
+import {Gif} from '../../model/gif';
 
 const moods:string[]=[
         "Happy",
@@ -18,12 +20,7 @@ const moods:string[]=[
     selector: 'mood-dashboard',
     templateUrl: '../../../template/mood-dashboard.template.html',
 })
-export class MoodDashboardComponent implements OnInit{
+export class MoodDashboardComponent{
     private array_moods:string[]=moods;
-
-    constructor(private gifservice:GifService){}
-    ngOnInit():void{
-        console.log(this.gifservice.getGifsByMood("mood"));
-    }
-
+    constructor(private http:Http){}
 }

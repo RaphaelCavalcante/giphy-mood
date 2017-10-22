@@ -12,6 +12,7 @@ var http_1 = require("@angular/http");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var mood_dashboard_component_1 = require("./component/mood-dashboard/mood-dashboard.component");
+var mood_search_component_1 = require("./component/mood-search/mood-search.component");
 var gif_service_1 = require("./service/gif.service");
 var globals_1 = require("./globals");
 var AppModule = (function () {
@@ -22,7 +23,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule],
-        declarations: [app_component_1.AppComponent, mood_dashboard_component_1.MoodDashboardComponent],
+        declarations: [app_component_1.AppComponent, mood_dashboard_component_1.MoodDashboardComponent, mood_search_component_1.MoodSearchComponent],
         bootstrap: [app_component_1.AppComponent],
         providers: [globals_1.Globals, gif_service_1.GifService]
     })

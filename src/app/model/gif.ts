@@ -1,5 +1,6 @@
 export class Gif{
-    mood:string;
+    type:string;
+    id:string;
     url:string;
-    descripition:string;
+    slug: string;
 }

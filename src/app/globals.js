@@ -10,16 +10,16 @@ var Globals = (function () {
     function Globals() {
         this.api_key = 'Kb9VU3XzdpY8K9hKRblhYb7bSjeSG0kK';
         this.moods = [
-            "Happy",
-            "Sad",
-            "Silly",
-            "Stressed",
-            "Frustrated",
-            "Peaceful",
-            "Angry",
-            "Hungry",
-            "Sleepy",
-            "Good"
+            "happy",
+            "sad",
+            "silly",
+            "stressed",
+            "frustrated",
+            "peaceful",
+            "angry",
+            "hungry",
+            "sleepy",
+            "good"
         ];
     }
     return Globals;
