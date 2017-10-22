@@ -4,7 +4,7 @@ import {MoodDashboardComponent} from './component/mood-dashboard/mood-dashboard.
 
 const routes:Routes = [
     {path:'', redirectTo: '/mood-dashboard', pathMatch:'full'},
-    {path:'mood-dashboard', component:MoodDashboardComponent}
+    {path:'mood-dashboard', component:MoodDashboardComponent},
 ];
 @NgModule({
     imports:[RouterModule.forRoot(routes)],

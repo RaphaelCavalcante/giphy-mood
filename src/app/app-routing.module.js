@@ -10,7 +10,7 @@ var router_1 = require("@angular/router");
 var mood_dashboard_component_1 = require("./component/mood-dashboard/mood-dashboard.component");
 var routes = [
     { path: '', redirectTo: '/mood-dashboard', pathMatch: 'full' },
-    { path: 'mood-dashboard', component: mood_dashboard_component_1.MoodDashboardComponent }
+    { path: 'mood-dashboard', component: mood_dashboard_component_1.MoodDashboardComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

@@ -9,6 +9,18 @@ var core_1 = require("@angular/core");
 var Globals = (function () {
     function Globals() {
         this.api_key = 'Kb9VU3XzdpY8K9hKRblhYb7bSjeSG0kK';
+        this.moods = [
+            "Happy",
+            "Sad",
+            "Silly",
+            "Stressed",
+            "Frustrated",
+            "Peaceful",
+            "Angry",
+            "Hungry",
+            "Sleepy",
+            "Good"
+        ];
     }
     return Globals;
 }());
