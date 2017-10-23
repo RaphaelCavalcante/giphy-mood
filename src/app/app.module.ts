@@ -1,7 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormModule, ReactiveFormsModule} from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 
@@ -15,7 +14,7 @@ import {ForbiddenValidatorDirective} from './validator/forbidden-chars.directive
 
 @NgModule({
   imports:      
-    [ BrowserModule, FormsModule, HttpModule, AppRoutingModule,FormsModule, ReactiveFormsModule ],
+    [ BrowserModule, FormsModule, HttpModule, AppRoutingModule, ReactiveFormsModule ],
   declarations: 
   [ 
     AppComponent,
