@@ -39,6 +39,6 @@ export class MoodSearchComponent implements OnInit{
         this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))
         .subscribe(gifs=>this.gifs=gifs );
     }
-    get filterControl(){console.log("teste");return this.filterForm.get('filterControl')}
+    get filterControl(){return this.filterForm.get('filterControl')}
     
 }

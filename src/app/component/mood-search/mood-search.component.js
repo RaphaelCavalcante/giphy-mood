@@ -41,7 +41,7 @@ var MoodSearchComponent = (function () {
             .subscribe(function (gifs) { return _this.gifs = gifs; });
     };
     Object.defineProperty(MoodSearchComponent.prototype, "filterControl", {
-        get: function () { console.log("teste"); return this.filterForm.get('filterControl'); },
+        get: function () { return this.filterForm.get('filterControl'); },
         enumerable: true,
         configurable: true
     });
