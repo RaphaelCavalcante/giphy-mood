@@ -10,8 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var gif_service_1 = require("../../service/gif.service");
+var forbidden_chars_directive_1 = require("../../validator/forbidden-chars.directive");
 require("rxjs/add/operator/switchMap");
 var MoodSearchComponent = (function () {
     function MoodSearchComponent(gifService, route, location, router) {
@@ -19,6 +21,7 @@ var MoodSearchComponent = (function () {
         this.route = route;
         this.location = location;
         this.router = router;
+        this.filter = { name: "" };
     }
     MoodSearchComponent.prototype.goBack = function () {
         this.location.back();
@@ -29,9 +32,19 @@ var MoodSearchComponent = (function () {
     };
     MoodSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.filterForm = new forms_1.FormGroup({
+            'filterControl': new forms_1.FormControl(this.filter.name, [
+                forbidden_chars_directive_1.forbiddenCharValidator(/^[\\\/a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]/i)
+            ])
+        });
         this.route.paramMap.switchMap(function (param) { return _this.gifService.getByMood(param.get("mood")); })
             .subscribe(function (gifs) { return _this.gifs = gifs; });
     };
+    Object.defineProperty(MoodSearchComponent.prototype, "filterControl", {
+        get: function () { console.log("teste"); return this.filterForm.get('filterControl'); },
+        enumerable: true,
+        configurable: true
+    });
     return MoodSearchComponent;
 }());
 MoodSearchComponent = __decorate([
