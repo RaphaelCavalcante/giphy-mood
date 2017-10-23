@@ -9,11 +9,12 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var mood_dashboard_component_1 = require("./component/mood-dashboard/mood-dashboard.component");
 var mood_search_component_1 = require("./component/mood-search/mood-search.component");
+var mood_filter_component_1 = require("./component/mood-filter/mood-filter.component");
 var routes = [
     { path: '', redirectTo: '/mood-dashboard', pathMatch: 'full' },
     { path: 'mood-dashboard', component: mood_dashboard_component_1.MoodDashboardComponent },
     { path: 'mood/:mood', component: mood_search_component_1.MoodSearchComponent },
-    { path: 'mood/:mood?q=:filter', component: mood_search_component_1.MoodSearchComponent }
+    { path: 'mood/:mood/:filter', component: mood_filter_component_1.MoodFilterComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
