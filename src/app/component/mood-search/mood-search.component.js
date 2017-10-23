@@ -26,15 +26,15 @@ var MoodSearchComponent = (function () {
     MoodSearchComponent.prototype.goBack = function () {
         this.location.back();
     };
-    MoodSearchComponent.prototype.addFilter = function (filter) {
+    MoodSearchComponent.prototype.addFilter = function (filterStr) {
         var para = this.route.paramMap["source"]["_value"];
-        this.router.navigate(['/mood/' + para["mood"] + "/" + filter]);
+        this.router.navigate(['/mood/' + para["mood"] + "/" + filterStr]);
     };
     MoodSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.filterForm = new forms_1.FormGroup({
             'filterControl': new forms_1.FormControl(this.filter.name, [
-                forbidden_chars_directive_1.forbiddenCharValidator(/^[\\\/a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]/i)
+                forbidden_chars_directive_1.forbiddenCharValidator(/^[\\\/!@#\$%\^\&*\)\(+=._-]/i)
             ])
         });
         this.route.paramMap.switchMap(function (param) { return _this.gifService.getByMood(param.get("mood")); })

@@ -20,19 +20,20 @@ export class MoodSearchComponent implements OnInit{
         private router:Router
     ){}
     gifs:Gif[];
-    filterForm: FormGroup; 
+    filterForm: FormGroup;
+    filterStr:string;
     filter={name:""};
     goBack():void{
         this.location.back();
     }
-    addFilter(filter:string):void{
+    addFilter(filterStr:string):void{
         let para=this.route.paramMap["source"]["_value"];
-        this.router.navigate(['/mood/'+para["mood"]+"/"+filter]);
+        this.router.navigate(['/mood/'+para["mood"]+"/"+filterStr]);
     }
     ngOnInit():void{
         this.filterForm = new FormGroup({
                 'filterControl': new FormControl(this.filter.name,[
-                    forbiddenCharValidator(/^[\\\/a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]/i)
+                    forbiddenCharValidator(/^[\\\/!@#\$%\^\&*\)\(+=._-]/i)
                 ])
             });
         this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))

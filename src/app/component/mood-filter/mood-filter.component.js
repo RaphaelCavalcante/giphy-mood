@@ -21,6 +21,7 @@ var MoodFilterComponent = (function () {
         this.route = route;
         this.gifService = gifService;
         this.filter_field = { filter_txt: '' };
+        this.filter = { name: "" };
     }
     MoodFilterComponent.prototype.goBack = function () {
         this.location.back();
@@ -32,13 +33,18 @@ var MoodFilterComponent = (function () {
     MoodFilterComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.filterForm = new forms_1.FormGroup({
-            'filter_field': new forms_1.FormControl(this.filter_field, [
-                forbidden_chars_directive_1.forbiddenCharValidator(/teste/i)
+            'filterControl': new forms_1.FormControl(this.filter.name, [
+                forbidden_chars_directive_1.forbiddenCharValidator(/^[\\\/!@#\$%\^\&*\)\(+=._-]/i)
             ])
         });
         this.route.paramMap.switchMap(function (param) { return _this.gifService.addFilter(param.get("mood"), param.get("filter")); })
             .subscribe(function (gifs) { _this.gifs = gifs; });
     };
+    Object.defineProperty(MoodFilterComponent.prototype, "filterControl", {
+        get: function () { return this.filterForm.get('filterControl'); },
+        enumerable: true,
+        configurable: true
+    });
     return MoodFilterComponent;
 }());
 MoodFilterComponent = __decorate([
