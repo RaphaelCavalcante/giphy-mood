@@ -4,32 +4,39 @@
   box-sizing: border-box;
 }
 body{
-  width: 90%;
+  width: 100%;
   height: auto;
-  margin: 0px 50px;
+}
+.search-field{
+  width:100%;
 }
 .search-button{
   width:41px;
-  float:left;
+  float:right;
   height: auto;
 }
+.dashboard{
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
 input{
-  width: 90%;
+  width: 88%;
   height: auto;
   font-size: 2em;
 }
 .back-button{
   position: fixed;
-  width: 50px;
+  width: 60px;
   height: auto;
   bottom: 10%;
-  right: 5%;
+  right: 2%;
   background: red;
   font-size: 3em;
   text-align: center;
   color: white;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 100%;
   font-weight: bold;
   z-index: 1000;
 }
@@ -43,13 +50,13 @@ input{
 }
 .title{
   width: auto;
+  color:black;
   margin: auto;
   height: auto;
   font-family: 'Dancing Script', cursive;
   font-size: 5em;
 }
 .mood-item{
-  position: relative;
   float: left;
   background: #e53935;
   color: white;
@@ -65,15 +72,15 @@ input{
 }
 .mood-item:hover{
   z-index: 1;
-  transform: scale(1.7,1.7);
+  transform: scale(1.2,1.2);
   transition: .3s transform;
 }
 .mood-list{
-  width: 90%;
+  position: absolute;
+  width: 100%;
+  padding-left: 10%;
   height: auto;
-  margin:0 auto;
-  margin-left: 100px;
-  padding: 0px;
+  margin:0;
 }
 #gif-item{
   line-height: 1.5em;
@@ -115,4 +122,13 @@ input{
   -webkit-column-count: 1;
   column-count:         1;
   }
+}
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
 }

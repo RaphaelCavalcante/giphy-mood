@@ -13,7 +13,7 @@ var routes = [
     { path: '', redirectTo: '/mood-dashboard', pathMatch: 'full' },
     { path: 'mood-dashboard', component: mood_dashboard_component_1.MoodDashboardComponent },
     { path: 'mood/:mood', component: mood_search_component_1.MoodSearchComponent },
-    { path: 'mood/:mood/:filter', component: mood_search_component_1.MoodSearchComponent }
+    { path: 'mood/:mood?q=:filter', component: mood_search_component_1.MoodSearchComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

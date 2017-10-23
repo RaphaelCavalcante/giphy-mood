@@ -14,31 +14,31 @@ var common_1 = require("@angular/common");
 var gif_service_1 = require("../../service/gif.service");
 require("rxjs/add/operator/switchMap");
 var MoodSearchComponent = (function () {
-    function MoodSearchComponent(gifService, route, location) {
+    function MoodSearchComponent(gifService, route, location, router) {
         this.gifService = gifService;
         this.route = route;
         this.location = location;
+        this.router = router;
     }
     MoodSearchComponent.prototype.goBack = function () {
         this.location.back();
     };
     MoodSearchComponent.prototype.addFilter = function (filter) {
-        var _this = this;
         var para = this.route.paramMap["source"]["_value"];
-        this.route.paramMap.switchMap(function (param) { return _this.gifService.addFilter(para["mood"], filter); })
-            .subscribe(function (gifs) { _this.gifs = gifs; });
+        this.router.navigate(['/mood/' + para["mood"]], { queryParams: { filter: filter } });
     };
     MoodSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var para = this.route.paramMap["source"]["_value"];
-        if (para["filter"]) {
-            this.route.paramMap.switchMap(function (param) { return _this.gifService.addFilter(param.get("mood"), param.get("filter")); })
-                .subscribe(function (gifs) { _this.gifs = gifs; _this.mood = para["mood"]; _this.filter = para["filter"]; });
-        }
-        else {
-            this.route.paramMap.switchMap(function (param) { return _this.gifService.getByMood(param.get("mood")); })
-                .subscribe(function (gifs) { return _this.gifs = gifs; });
-        }
+        this.route.queryParams.subscribe(function (params) {
+            if (params.filter) {
+                _this.route.paramMap.switchMap(function (param) { return _this.gifService.addFilter(param.get("mood"), params.filter); })
+                    .subscribe(function (gifs) { _this.gifs = gifs; });
+            }
+            else {
+                _this.route.paramMap.switchMap(function (param) { return _this.gifService.getByMood(param.get("mood")); })
+                    .subscribe(function (gifs) { return _this.gifs = gifs; });
+            }
+        });
     };
     return MoodSearchComponent;
 }());
@@ -49,7 +49,8 @@ MoodSearchComponent = __decorate([
     }),
     __metadata("design:paramtypes", [gif_service_1.GifService,
         router_1.ActivatedRoute,
-        common_1.Location])
+        common_1.Location,
+        router_1.Router])
 ], MoodSearchComponent);
 exports.MoodSearchComponent = MoodSearchComponent;
 //# sourceMappingURL=mood-search.component.js.map

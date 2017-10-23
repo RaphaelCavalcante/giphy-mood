@@ -7,7 +7,7 @@ const routes:Routes = [
     {path:'', redirectTo: '/mood-dashboard', pathMatch:'full'},
     {path:'mood-dashboard', component:MoodDashboardComponent},
     {path:'mood/:mood',component:MoodSearchComponent},
-    {path:'mood/:mood/:filter', component:MoodSearchComponent}
+    {path:'mood/:mood?q=:filter', component:MoodSearchComponent}
 ];
 @NgModule({
     imports:[RouterModule.forRoot(routes)],
