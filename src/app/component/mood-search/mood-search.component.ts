@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute,Router, ParamMap} from '@angular/router';
 import {Location} from '@angular/common';
 
 import {Gif} from '../../model/gif';
@@ -16,6 +16,7 @@ export class MoodSearchComponent implements OnInit{
         private gifService:GifService,
         private route:ActivatedRoute,
         private location:Location,
+        private router:Router
     ){}
     gifs:Gif[];
     mood:string;
@@ -26,17 +27,17 @@ export class MoodSearchComponent implements OnInit{
     }
     addFilter(filter:string):void{
         let para=this.route.paramMap["source"]["_value"];
-        this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.addFilter(para["mood"], filter))
-            .subscribe(gifs=>{this.gifs=gifs;});
+        this.router.navigate(['/mood/'+para["mood"]],{queryParams:{filter:filter}});
     }
     ngOnInit():void{
-        let para=this.route.paramMap["source"]["_value"];
-        if(para["filter"]){
-            this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.addFilter(param.get("mood"), param.get("filter")))
-            .subscribe(gifs=>{this.gifs=gifs; this.mood=para["mood"]; this.filter=para["filter"]});
-        }else{
-            this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))
+        this.route.queryParams.subscribe(params=>{
+            if(params.filter){
+                this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.addFilter(param.get("mood"), params.filter))
+            .subscribe(gifs=>{this.gifs=gifs;});
+            }else{
+                this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))
             .subscribe(gifs=>this.gifs=gifs );
-        }
+            }
+        });
     }
 }
