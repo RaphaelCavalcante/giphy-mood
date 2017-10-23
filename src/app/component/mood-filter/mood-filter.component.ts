@@ -10,9 +10,10 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector:'filter-mood',
-    template:'../../../template/mood-search.template.html'
+    template:'../../../template/home.template.html'
 })
 export class MoodFilterComponent implements OnInit{
+    gifs:Gif[];
     constructor(
          private gifService:GifService,
         private route:ActivatedRoute,
@@ -20,8 +21,11 @@ export class MoodFilterComponent implements OnInit{
         private router:Router){}
     
     ngOnInit():void{
+        let filter:string;
         this.route.queryParams.subscribe(params=>{
-            console.log(params);
+            filter=params.filter;
         });
+        this.route.paramMap.switchMap((param:ParamMap)=>
+            this.gifService.addFilter(param.get("mood"), filter)).subscribe(gifs=>this.gifs=gifs);
     }
 }

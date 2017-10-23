@@ -27,17 +27,10 @@ export class MoodSearchComponent implements OnInit{
     }
     addFilter(filter:string):void{
         let para=this.route.paramMap["source"]["_value"];
-        this.router.navigate(['/mood/'+para["mood"]],{queryParams:{filter:filter}});
+        //this.router.navigate(['/mood/'+para["mood"]+'/'],{queryParams:{filter:filter}});
     }
     ngOnInit():void{
-        this.route.queryParams.subscribe(params=>{
-            if(params.filter){
-                this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.addFilter(param.get("mood"), params.filter))
-            .subscribe(gifs=>{this.gifs=gifs;});
-            }else{
-                this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))
-            .subscribe(gifs=>this.gifs=gifs );
-            }
-        });
+            this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))
+        .subscribe(gifs=>this.gifs=gifs);
     }
 }

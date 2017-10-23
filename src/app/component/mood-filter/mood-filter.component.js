@@ -13,36 +13,34 @@ var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var gif_service_1 = require("../../service/gif.service");
 require("rxjs/add/operator/switchMap");
-var MoodSearchComponent = (function () {
-    function MoodSearchComponent(gifService, route, location, router) {
+var MoodFilterComponent = (function () {
+    function MoodFilterComponent(gifService, route, location, router) {
         this.gifService = gifService;
         this.route = route;
         this.location = location;
         this.router = router;
     }
-    MoodSearchComponent.prototype.goBack = function () {
-        this.location.back();
-    };
-    MoodSearchComponent.prototype.addFilter = function (filter) {
-        var para = this.route.paramMap["source"]["_value"];
-        //this.router.navigate(['/mood/'+para["mood"]+'/'],{queryParams:{filter:filter}});
-    };
-    MoodSearchComponent.prototype.ngOnInit = function () {
+    MoodFilterComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.paramMap.switchMap(function (param) { return _this.gifService.getByMood(param.get("mood")); })
-            .subscribe(function (gifs) { return _this.gifs = gifs; });
+        var filter;
+        this.route.queryParams.subscribe(function (params) {
+            filter = params.filter;
+        });
+        this.route.paramMap.switchMap(function (param) {
+            return _this.gifService.addFilter(param.get("mood"), filter);
+        }).subscribe(function (gifs) { return _this.gifs = gifs; });
     };
-    return MoodSearchComponent;
+    return MoodFilterComponent;
 }());
-MoodSearchComponent = __decorate([
+MoodFilterComponent = __decorate([
     core_1.Component({
-        selector: 'search-mood',
-        templateUrl: '../../../template/mood-search.template.html'
+        selector: 'filter-mood',
+        template: '../../../template/home.template.html'
     }),
     __metadata("design:paramtypes", [gif_service_1.GifService,
         router_1.ActivatedRoute,
         common_1.Location,
         router_1.Router])
-], MoodSearchComponent);
-exports.MoodSearchComponent = MoodSearchComponent;
-//# sourceMappingURL=mood-search.component.js.map
+], MoodFilterComponent);
+exports.MoodFilterComponent = MoodFilterComponent;
+//# sourceMappingURL=mood-filter.component.js.map
