@@ -10,7 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
+var forbidden_chars_directive_1 = require("../../validator/forbidden-chars.directive");
 var gif_service_1 = require("../../service/gif.service");
 var MoodFilterComponent = (function () {
     function MoodFilterComponent(location, router, route, gifService) {
@@ -18,6 +20,7 @@ var MoodFilterComponent = (function () {
         this.router = router;
         this.route = route;
         this.gifService = gifService;
+        this.filter_field = { filter_txt: '' };
     }
     MoodFilterComponent.prototype.goBack = function () {
         this.location.back();
@@ -28,6 +31,11 @@ var MoodFilterComponent = (function () {
     };
     MoodFilterComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.filterForm = new forms_1.FormGroup({
+            'filter_field': new forms_1.FormControl(this.filter_field, [
+                forbidden_chars_directive_1.forbiddenCharValidator(/teste/i)
+            ])
+        });
         this.route.paramMap.switchMap(function (param) { return _this.gifService.addFilter(param.get("mood"), param.get("filter")); })
             .subscribe(function (gifs) { _this.gifs = gifs; });
     };

@@ -1,9 +1,25 @@
 <a id="back-button" class="back-button" (click)="goBack()" title="Go Back"><</a>
 
-<div class='search-field'>
+<!--<div class='search-field'>
     <img class="search-button" type="submit" src="http://gph.is/2h1u3XE" (click)="addFilter(filter)">
     <input [(ngModel)]="filter" placeholder ="Filter..." (keyup.enter)="addFilter(filter)">
-</div> 
+</div> -->
+<form [formGroup]="filterForm" #formDir="ngForm"  class='search-field' (ngOnSubmit)="addFilter(filter)">
+    <div [hidden]="formDir.submitted">
+        
+        <img class="search-button" type="submit" src="http://gph.is/2h1u3XE" (click)="addFilter(filter)">
+        <input id="name" formControlName="filterControl" class="form-control" placeholder ="Filter..." (keyup.enter)="addFilter(filter)">
+        
+        <div *ngIf="filterControl.invalid && (filterControl.dirty || filterControl.touched)"
+                    class="footer">
+            <div *ngIf="filterControl.errors.forbiddenName">
+                    Name must have only 0..9 or aA..zZ characters
+            </div>
+        </div>
+        
+    </div>
+</form>
+
 <section id='gif-item' >
     <img *ngFor="let gif of gifs" src="{{gif.images.original.url}}">
 </section>

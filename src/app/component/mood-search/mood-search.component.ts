@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute,Router, ParamMap} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 
 import {Gif} from '../../model/gif';
 import {GifService} from '../../service/gif.service';
-
+import {forbiddenCharValidator} from '../../validator/forbidden-chars.directive';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -19,6 +20,8 @@ export class MoodSearchComponent implements OnInit{
         private router:Router
     ){}
     gifs:Gif[];
+    filterForm: FormGroup; 
+    filter={name:""};
     goBack():void{
         this.location.back();
     }
@@ -27,7 +30,14 @@ export class MoodSearchComponent implements OnInit{
         this.router.navigate(['/mood/'+para["mood"]+"/"+filter]);
     }
     ngOnInit():void{
-            this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))
+        this.filterForm = new FormGroup({
+                'filterControl': new FormControl(this.filter.name,[
+                    forbiddenCharValidator(/^[\\\/a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]/i)
+                ])
+            });
+        this.route.paramMap.switchMap((param:ParamMap)=>this.gifService.getByMood(param.get("mood")))
         .subscribe(gifs=>this.gifs=gifs );
     }
+    get filterControl(){console.log("teste");return this.filterForm.get('filterControl')}
+    
 }
