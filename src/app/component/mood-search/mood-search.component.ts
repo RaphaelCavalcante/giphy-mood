@@ -19,9 +19,6 @@ export class MoodSearchComponent implements OnInit{
         private router:Router
     ){}
     gifs:Gif[];
-    mood:string;
-    filter: string;
-    status:string;
     goBack():void{
         this.location.back();
     }
