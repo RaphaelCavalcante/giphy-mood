@@ -14,8 +14,8 @@ require("rxjs/add/operator/toPromise");
 var GifService = (function () {
     function GifService(http) {
         this.http = http;
-        this.gif_url = "http://api.giphy.com/v1/gifs/search?q=";
-        this.api_key = "Kb9VU3XzdpY8K9hKRblhYb7bSjeSG0kK";
+        this.gif_url = 'http://api.giphy.com/v1/gifs/search?q=';
+        this.api_key = 'Kb9VU3XzdpY8K9hKRblhYb7bSjeSG0kK';
     }
     GifService.prototype.handleError = function (error) {
         console.error('An error ocurred', error);
@@ -23,14 +23,20 @@ var GifService = (function () {
     };
     GifService.prototype.addFilter = function (mood, filter) {
         var url = "" + this.gif_url + mood + "+" + filter + "&api_key=" + this.api_key + "&limit=10";
-        return this.http.
-            get(url).toPromise().then(function (response) { return response.json().data; }).catch(this.handleError);
+        return this.http
+            .get(url).toPromise()
+            .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
     };
     GifService.prototype.getByMood = function (mood) {
         var url = "" + this.gif_url + mood + "&api_key=" + this.api_key + "&limit=10";
         console.log(url);
-        return this.http.
-            get(url).toPromise().then(function (response) { return response.json().data; }).catch(this.handleError);
+        var gifs = this.http
+            .get(url).toPromise()
+            .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
+        console.log(gifs[0].slug);
+        return gifs;
     };
     return GifService;
 }());

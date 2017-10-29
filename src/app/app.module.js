@@ -14,8 +14,8 @@ var app_component_1 = require("./app.component");
 var mood_dashboard_component_1 = require("./component/mood-dashboard/mood-dashboard.component");
 var mood_search_component_1 = require("./component/mood-search/mood-search.component");
 var mood_filter_component_1 = require("./component/mood-filter/mood-filter.component");
-var gif_service_1 = require("./service/gif.service");
 var forbidden_chars_directive_1 = require("./validator/forbidden-chars.directive");
+var gif_service_1 = require("./service/gif.service");
 var AppModule = (function () {
     function AppModule() {
     }

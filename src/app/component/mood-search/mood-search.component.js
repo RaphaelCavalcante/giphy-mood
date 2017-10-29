@@ -21,14 +21,14 @@ var MoodSearchComponent = (function () {
         this.route = route;
         this.location = location;
         this.router = router;
-        this.filter = { name: "" };
+        this.filter = { name: '' };
     }
     MoodSearchComponent.prototype.goBack = function () {
         this.location.back();
     };
     MoodSearchComponent.prototype.addFilter = function (filterStr) {
-        var para = this.route.paramMap["source"]["_value"];
-        this.router.navigate(['/mood/' + para["mood"] + "/" + filterStr]);
+        var para = this.route.paramMap['source']['_value'];
+        this.router.navigate(['/mood/' + para['mood'] + '/' + filterStr]);
     };
     MoodSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -37,11 +37,13 @@ var MoodSearchComponent = (function () {
                 forbidden_chars_directive_1.forbiddenCharValidator(/^[\\\/!@#\$%\^\&*\)\(+=._-]/i)
             ])
         });
-        this.route.paramMap.switchMap(function (param) { return _this.gifService.getByMood(param.get("mood")); })
+        this.route.paramMap.switchMap(function (param) { return _this.gifService.getByMood(param.get('mood')); })
             .subscribe(function (gifs) { return _this.gifs = gifs; });
     };
     Object.defineProperty(MoodSearchComponent.prototype, "filterControl", {
-        get: function () { return this.filterForm.get('filterControl'); },
+        get: function () {
+            return this.filterForm.get('filterControl');
+        },
         enumerable: true,
         configurable: true
     });
