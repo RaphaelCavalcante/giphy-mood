@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   selector: 'home',
   templateUrl: './template/home.template.html'
 })
-export class AppComponent  { title:string="Mood Giphy"; }
+export class AppComponent  { title: string= 'Mood Giphy'; }

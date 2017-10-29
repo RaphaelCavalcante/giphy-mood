@@ -1,34 +1,43 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import {Gif} from '../model/gif';
+import {environment} from '../../app/environment';
+import 'app/environment';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
+const GIF_URL = environment.gif_url;
+const API_KEY = environment.api_key;
 @Injectable()
 export class GifService {
-    private gif_url= 'http://api.giphy.com/v1/gifs/search?q=';
-    private api_key= 'Kb9VU3XzdpY8K9hKRblhYb7bSjeSG0kK';
 
     constructor (private http: Http) {}
 
-    private handleError(error: any): Promise<any> {
+    private handleError(error: Response| any) {
         console.error('An error ocurred', error);
-        return Promise.reject(error.message || error);
+        return Observable.throw(error);
     }
-    addFilter(mood: string, filter: string): Promise<Gif[]> {
-        const url = `${this.gif_url}${mood}+${filter}&api_key=${this.api_key}&limit=10`;
+    addFilter(mood: string, filter: string): Observable<Gif[]> {
+        const url = `${GIF_URL}${mood}+${filter}&api_key=${API_KEY}&limit=10`;
         return this.http
-        .get(url).toPromise()
-        .then(response => response.json().data as Gif[])
-        .catch(this.handleError);
+        .get(url)
+        .map(response => {
+            const gifs = response.json();
+            return gifs.data.map((gif: Gif) => new Gif(gif));
+        }).
+        catch(this.handleError);
     }
-    getByMood(mood: string): Promise<Gif[]> {
-        const url = `${this.gif_url}${mood}&api_key=${this.api_key}&limit=10`;
-        console.log(url);
-        let gifs: Promise<Gif[]> = this.http
-        .get(url).toPromise()
-        .then(response => response.json().data as Gif[])
-        .catch(this.handleError);
-        console.log(gifs[0].slug);
-        return gifs;
+    getByMood(mood: string): Observable<Gif[]> {
+        const url = `${GIF_URL}${mood}&api_key=${API_KEY}&limit=10`;
+        return this.http
+        .get(url)
+        .map(response => {
+            const gifs = response.json();
+            let gifArray = gifs.data;
+            return gifArray;
+        }).
+        catch(this.handleError);
     }
 }

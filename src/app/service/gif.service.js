@@ -10,33 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/add/operator/toPromise");
+var Observable_1 = require("rxjs/Observable");
+var gif_1 = require("../model/gif");
+var environment_1 = require("../../app/environment");
+require("app/environment");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
+require("rxjs/add/observable/throw");
+var GIF_URL = environment_1.environment.gif_url;
+var API_KEY = environment_1.environment.api_key;
 var GifService = (function () {
     function GifService(http) {
         this.http = http;
-        this.gif_url = 'http://api.giphy.com/v1/gifs/search?q=';
-        this.api_key = 'Kb9VU3XzdpY8K9hKRblhYb7bSjeSG0kK';
     }
     GifService.prototype.handleError = function (error) {
         console.error('An error ocurred', error);
-        return Promise.reject(error.message || error);
+        return Observable_1.Observable.throw(error);
     };
     GifService.prototype.addFilter = function (mood, filter) {
-        var url = "" + this.gif_url + mood + "+" + filter + "&api_key=" + this.api_key + "&limit=10";
+        var url = "" + GIF_URL + mood + "+" + filter + "&api_key=" + API_KEY + "&limit=10";
         return this.http
-            .get(url).toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
+            .get(url)
+            .map(function (response) {
+            var gifs = response.json();
+            return gifs.data.map(function (gif) { return new gif_1.Gif(gif); });
+        }).
+            catch(this.handleError);
     };
     GifService.prototype.getByMood = function (mood) {
-        var url = "" + this.gif_url + mood + "&api_key=" + this.api_key + "&limit=10";
-        console.log(url);
-        var gifs = this.http
-            .get(url).toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
-        console.log(gifs[0].slug);
-        return gifs;
+        var url = "" + GIF_URL + mood + "&api_key=" + API_KEY + "&limit=10";
+        return this.http
+            .get(url)
+            .map(function (response) {
+            var gifs = response.json();
+            var gifArray = gifs.data;
+            return gifArray;
+        }).
+            catch(this.handleError);
     };
     return GifService;
 }());

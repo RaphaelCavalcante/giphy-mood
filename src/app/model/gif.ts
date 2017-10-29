@@ -3,4 +3,7 @@ export class Gif {
     id: string;
     url: string;
     slug: string;
+    constructor (values: Object = {}) {
+        Object.assign(this, values);
+    }
 }
